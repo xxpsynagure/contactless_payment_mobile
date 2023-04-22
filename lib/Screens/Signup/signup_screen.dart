@@ -7,8 +7,8 @@ import 'components/signup_form.dart';
 import 'components/socal_sign_up.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
-
+  const SignUpScreen({Key? key, required this.qrdata}) : super(key: key);
+  final qrdata;
   @override
   Widget build(BuildContext context) {
     return Background(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:contactless_payment_mobile/utils/styles.dart';
 import '../../Login/login_screen.dart';
-import '../../Signup/signup_screen.dart';
+import '../../Signup/Signup_qr.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({
@@ -38,7 +38,7 @@ class LoginAndSignupBtn extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return SignUpScreen();
+                  return SignUpQR();
                 },
               ),
             );

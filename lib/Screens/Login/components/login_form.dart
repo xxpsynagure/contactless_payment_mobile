@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../utils/styles.dart';
-import '../../Signup/signup_screen.dart';
+import '../../Signup/signup_qr.dart';
 import '../../Home/root_app.dart';
 
 class LoginForm extends StatefulWidget {
@@ -82,7 +82,7 @@ class _LoginFormState extends State<LoginForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return SignUpScreen();
+                    return SignUpQR();
                   },
                 ),
               );
