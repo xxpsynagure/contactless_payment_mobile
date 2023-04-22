@@ -8,6 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import './signup_screen.dart';
 import 'components/sign_up_top_image.dart';
 import '../../utils/styles.dart';
+import '../../components/already_have_an_account_acheck.dart';
+import '../Login/login_screen.dart';
+
+
 
 
 class SignUpQR extends StatefulWidget {
@@ -92,15 +96,15 @@ class _SignUpQRState extends State<SignUpQR> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const SignUpScreenTopImage(),
-            const Text(
-                  'Scan Result',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white54,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 8),
+            // const Text(
+            //       'Scan Result',
+            //       style: TextStyle(
+            //         fontSize: 16,
+            //         color: Colors.black,
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            // ),
+            const SizedBox(height: defaultPadding * 2),
             ValueListenableBuilder(
                   valueListenable: qrCode,
                   builder: (context, value, child) => Text(
@@ -116,7 +120,7 @@ class _SignUpQRState extends State<SignUpQR> {
                     ),
                   ),
             ),
-            const SizedBox(height: 72),
+            const SizedBox(height: defaultPadding *2),
             GestureDetector(
               onTap: () => scanQRCode(),
               child: Container(
@@ -135,6 +139,20 @@ class _SignUpQRState extends State<SignUpQR> {
                 ),
               ),
             ),
+          ),
+          const SizedBox(height: defaultPadding ),
+          AlreadyHaveAnAccountCheck(
+            login: false,
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return LoginScreen();
+                  },
+                ),
+              );
+            },
           ),
         ],
       ),

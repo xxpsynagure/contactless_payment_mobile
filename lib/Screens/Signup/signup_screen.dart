@@ -48,7 +48,10 @@ class MobileSignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: defaultPadding),
+        child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         const SignUpScreenTopImage(),
@@ -64,6 +67,8 @@ class MobileSignupScreen extends StatelessWidget {
         ),
         // const SocalSignUp()
       ],
+    )
+      ),
     );
   }
 }
