@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:contactless_payment_mobile/razorpay.dart';
 import 'package:contactless_payment_mobile/Screens/Welcome/welcome_screen.dart';
-import 'package:contactless_payment_mobile/constants.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
 
 void main() {
   dotenv.load(fileName: "lib/.env");
@@ -45,40 +44,6 @@ class MyApp extends StatelessWidget {
             ),
           )),
       home: WelcomeScreen(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  final RazorPayIntegration _integration = RazorPayIntegration();
-  @override
-  void initState() {
-    super.initState();
-    _integration.intiateRazorPay();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Razorpay"),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _integration.openSession(amount: 10);
-        },
-        tooltip: 'Razorpay',
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

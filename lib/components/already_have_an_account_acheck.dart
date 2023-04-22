@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:contactless_payment_mobile/constants.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;

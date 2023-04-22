@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:contactless_payment_mobile/constants.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
 
 class OrDivider extends StatelessWidget {
   const OrDivider({Key? key}) : super(key: key);

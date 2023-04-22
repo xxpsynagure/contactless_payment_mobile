@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:contactless_payment_mobile/constants.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
 import 'package:contactless_payment_mobile/responsive.dart';
 import '../../components/background.dart';
 import 'components/sign_up_top_image.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
 
 class SignUpScreenTopImage extends StatelessWidget {
   const SignUpScreenTopImage({

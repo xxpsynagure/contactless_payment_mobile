@@ -1,6 +1,6 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import '../api_services.dart';
+import './api_services.dart';
 
 class RazorPayIntegration {
   final Razorpay _razorpay = Razorpay(); //Instance of razor pay
@@ -28,7 +28,7 @@ class RazorPayIntegration {
         var options = {
           'key': razorPayKey, //Razor pay API Key
           'amount': amount, //in the smallest currency sub-unit.
-          'name': 'Company Name.',
+          'name': 'Contactless Payment',
           'order_id': orderId, // Generate order_id using Orders API
           'description':
               'Description for order', //Order Description to be shown in razor pay page

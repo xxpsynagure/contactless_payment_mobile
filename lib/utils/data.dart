@@ -1,0 +1,1 @@
+var balance = 50;

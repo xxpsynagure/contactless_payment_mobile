@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
 import '../../Login/login_screen.dart';
 import '../../Signup/signup_screen.dart';
 
