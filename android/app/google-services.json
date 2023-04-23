@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "838442475027",
+    "project_id": "contactless-payment-d049d",
+    "storage_bucket": "contactless-payment-d049d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:838442475027:android:85d11027fe50802b1d29e6",
+        "android_client_info": {
+          "package_name": "com.example.contactless_payment_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "838442475027-pmsvbv48i9jpj2h9iu998o2itiigtm72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtLHg7ftbUbnTQpnuxLy7ZNHlSuAm1ePs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "838442475027-pmsvbv48i9jpj2h9iu998o2itiigtm72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
