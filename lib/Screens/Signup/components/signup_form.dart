@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,13 +24,23 @@ class _SignUpFormState extends State<SignUpForm> {
   TextEditingController cPasswordController = TextEditingController();
 
   void createAccount() async {
-    String name = emailController.text.trim();
+    String name = nameController.text.trim();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
+
+    Map<String, dynamic> newUserData = {
+      "name" : name,
+      "email" : email,
+      "palm_id" : widget.palmId,
+      "wallet" : 100
+    };
 
     //creating new account
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      // await userCredential.user!.updateDisplayName(widget.palmId);
+      await FirebaseFirestore.instance.collection("users").doc(widget.palmId).set(newUserData);
+
       if(userCredential.user != null) {
         Fluttertoast.showToast(
           msg: 'Registration Successful!\nPlease Login to your account',
