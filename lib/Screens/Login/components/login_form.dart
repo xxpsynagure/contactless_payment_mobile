@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../utils/styles.dart';
 import '../../Signup/signup_qr.dart';
@@ -14,6 +17,33 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  void login() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      if(userCredential.user != null) {
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const RootApp())
+        );
+      }
+    } on FirebaseAuthException catch(ex) {
+      Fluttertoast.showToast(
+        msg: ex.message!,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        fontSize: 16,
+        backgroundColor: kPrimaryColor,
+        textColor: Colors.white,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -24,6 +54,7 @@ class _LoginFormState extends State<LoginForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            controller: emailController,
             onSaved: (email) {},
             validator: MultiValidator([
               RequiredValidator(errorText: "* Required"),
@@ -43,6 +74,7 @@ class _LoginFormState extends State<LoginForm> {
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
+              controller: passwordController,
               validator: MultiValidator([
                 RequiredValidator(errorText: "* Required"),
                 MinLengthValidator(6,errorText: "Password should be atleast 6 characters"),
@@ -62,12 +94,7 @@ class _LoginFormState extends State<LoginForm> {
             child: ElevatedButton(
               onPressed: () {
                 if (formkey.currentState!.validate()) {
-                      Navigator.push(context,
-                          //MaterialPageRoute(builder: (_) => const Home()));
-                          MaterialPageRoute(builder: (_) => const RootApp()));
-                      print("Validated");
-                    } else {
-                      print("Not Validated");
+                  login();
                 }
               },
               child: Text(

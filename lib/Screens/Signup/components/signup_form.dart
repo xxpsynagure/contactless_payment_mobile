@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import 'package:contactless_payment_mobile/utils/styles.dart';
 import '../../Login/login_screen.dart';
@@ -14,7 +15,46 @@ class SignUpForm extends StatefulWidget {
 }
 class _SignUpFormState extends State<SignUpForm> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
-  
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController cPasswordController = TextEditingController();
+
+  void createAccount() async {
+    String name = emailController.text.trim();
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
+
+    //creating new account
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      if(userCredential.user != null) {
+        Fluttertoast.showToast(
+          msg: 'Registration Successful!\nPlease Login to your account',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          fontSize: 16,
+          backgroundColor: kPrimaryColor,
+          textColor: Colors.white,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreen())
+        );
+      }
+    } on FirebaseAuthException catch(ex) {
+      Fluttertoast.showToast(
+        msg: ex.message!,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        fontSize: 16,
+        backgroundColor: kPrimaryColor,
+        textColor: Colors.white,
+      );
+    }
+  }
+ 
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -27,6 +67,7 @@ class _SignUpFormState extends State<SignUpForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            controller: nameController,
             onSaved: (name) {},
             validator: MultiValidator([
               RequiredValidator(errorText: "* Required"),
@@ -46,6 +87,7 @@ class _SignUpFormState extends State<SignUpForm> {
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
+            controller: emailController,
             onSaved: (email) {},
             validator: MultiValidator([
               RequiredValidator(errorText: "* Required"),
@@ -66,6 +108,7 @@ class _SignUpFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
+              controller: passwordController,
               validator: MultiValidator([
                 RequiredValidator(errorText: "* Required"),
                 MinLengthValidator(6,errorText: "Password should be atleast 6 characters"),
@@ -85,10 +128,12 @@ class _SignUpFormState extends State<SignUpForm> {
               textInputAction: TextInputAction.done,
               obscureText: true,
               cursorColor: kPrimaryColor,
-              validator: MultiValidator([
-                RequiredValidator(errorText: "* Required"),
-                MinLengthValidator(6,errorText: "Password should be atleast 6 characters"),
-              ]),
+              controller: cPasswordController,
+              validator: (value) {
+                if(value == null) return '* Required';
+                if(value != passwordController.text.trim()) return 'Passwords do not match';
+                return null;
+              },
               decoration: InputDecoration(
                 hintText: "Confirm Password",
                 prefixIcon: Padding(
@@ -104,13 +149,7 @@ class _SignUpFormState extends State<SignUpForm> {
             child: ElevatedButton(
             onPressed: () {
               if (formkey.currentState!.validate()) {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginScreen())
-              );
-              print("Validated");
-              } else {
-                print("Not Validated");
+              createAccount();
               }
             },
             child: Text("Sign Up".toUpperCase()),

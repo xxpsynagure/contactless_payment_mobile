@@ -13,10 +13,12 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   dio: ^5.1.1
+  firebase_auth: ^4.4.2
   firebase_core: ^2.10.0
   flutter_barcode_scanner: ^2.0.0
   flutter_dotenv: ^5.0.2
   flutter_svg: ^1.1.0
+  fluttertoast: ^8.2.1
   form_field_validator: ^1.0.1
   http: ^0.13.5
   lottie: ^2.3.0
