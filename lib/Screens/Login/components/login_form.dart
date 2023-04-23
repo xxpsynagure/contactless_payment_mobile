@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../utils/styles.dart';
 import '../../Signup/signup_qr.dart';
-import '../../Home/root_app.dart';
+import 'package:contactless_payment_mobile/Screens/root_app.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({ Key? key }) : super(key: key);

@@ -1,8 +1,10 @@
+import 'package:contactless_payment_mobile/Screens/root_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:contactless_payment_mobile/Screens/Welcome/welcome_screen.dart';
 import 'package:contactless_payment_mobile/utils/styles.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -48,7 +50,8 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      home: WelcomeScreen(),
+      home: (FirebaseAuth.instance.currentUser != null) ? const RootApp() : const WelcomeScreen(),
+      // home: const WelcomeScreen(),
     );
   }
 }

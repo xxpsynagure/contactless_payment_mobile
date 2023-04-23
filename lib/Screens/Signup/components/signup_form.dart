@@ -8,7 +8,8 @@ import '../../Login/login_screen.dart';
 
 
 class SignUpForm extends StatefulWidget {
-  const SignUpForm({ Key? key }) : super(key: key);
+  const SignUpForm({ Key? key, required this.palmId }) : super(key: key);
+  final palmId;
 
   @override
   State<SignUpForm> createState() => _SignUpFormState();

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:contactless_payment_mobile/theme/color.dart';
 import 'package:contactless_payment_mobile/utils/constant.dart';
-import 'components/bottombar_item.dart';
-import 'home_screen.dart';
+import 'package:contactless_payment_mobile/Screens/Home/components/bottombar_item.dart';
+import 'package:contactless_payment_mobile/Screens/Home/home_screen.dart';
 import 'package:contactless_payment_mobile/Screens/Wallet/wallet_screen.dart';
+import 'package:contactless_payment_mobile/Screens/Settings/settings_screen.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({ Key? key }) : super(key: key);
@@ -14,6 +15,7 @@ class RootApp extends StatefulWidget {
 
 class _RootAppState extends State<RootApp>  with TickerProviderStateMixin {
   int activeTab = 0;
+  
   List barItems = [
     {
       "icon" : "assets/icons/home-border.svg",
@@ -36,8 +38,8 @@ class _RootAppState extends State<RootApp>  with TickerProviderStateMixin {
     {
       "icon" : "assets/icons/setting-border.svg",
       "active_icon" : "assets/icons/setting.svg",
-      "page" : const Home(),
-      "title" : ""
+      "page" : const SettingsScreen(),
+      "title" : "",
     }, 
   ];
 //====== set animation=====

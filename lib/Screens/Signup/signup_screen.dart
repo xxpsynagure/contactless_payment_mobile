@@ -14,7 +14,7 @@ class SignUpScreen extends StatelessWidget {
     return Background(
       child: SingleChildScrollView(
         child: Responsive(
-          mobile: const MobileSignupScreen(),
+          mobile: MobileSignupScreen(qrdata: qrdata),
           desktop: Row(
             children: [
               const Expanded(
@@ -23,10 +23,10 @@ class SignUpScreen extends StatelessWidget {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     SizedBox(
                       width: 450,
-                      child: SignUpForm(),
+                      child: SignUpForm(palmId: qrdata),
                     ),
                     SizedBox(height: defaultPadding / 2),
                     // SocalSignUp()
@@ -43,8 +43,9 @@ class SignUpScreen extends StatelessWidget {
 
 class MobileSignupScreen extends StatelessWidget {
   const MobileSignupScreen({
-    Key? key,
+    Key? key, required this.qrdata
   }) : super(key: key);
+  final qrdata;
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +57,11 @@ class MobileSignupScreen extends StatelessWidget {
       children: <Widget>[
         const SignUpScreenTopImage(),
         Row(
-          children: const [
+          children: [
             Spacer(),
             Expanded(
               flex: 8,
-              child: SignUpForm(),
+              child: SignUpForm(palmId: qrdata),
             ),
             Spacer(),
           ],
@@ -69,6 +70,6 @@ class MobileSignupScreen extends StatelessWidget {
       ],
     )
       ),
-    );
+    ); 
   }
 }
