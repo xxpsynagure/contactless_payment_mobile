@@ -5,32 +5,6 @@ import 'package:contactless_payment_mobile/utils/styles.dart';
 import 'package:contactless_payment_mobile/widgets/animated_title.dart';
 import '../../../utils/data.dart';
 
-
-// class WalletScreen extends StatelessWidget {
-//   const WalletScreen({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: <Widget>[
-//         Text('Contactless Payment 🛒',
-//           style: TextStyle(
-//             fontSize: 38,
-//             fontWeight: FontWeight.bold,
-//             color: Styles.blackColor,
-//             height: 1
-//           ),
-//         ),
-//         SizedBox(height: defaultPadding * 2),
-//         const AnimatedTitle(title: 'Your Wallet'), 
-//         SizedBox(height: defaultPadding),
-//       ],
-//     );
-//   }
-
-// }
-
 class WalletScreen extends StatefulWidget {
   const WalletScreen({
     Key? key,
@@ -42,14 +16,27 @@ class WalletScreen extends StatefulWidget {
 
 class _WalletScreenState extends State<WalletScreen> {
   final RazorPayIntegration _integration = RazorPayIntegration();
+  late final UserFirestoreService _userService;
+
   @override
   void initState() {
     super.initState();
     _integration.intiateRazorPay();
+    _userService = UserFirestoreService();
   }
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<User>(
+      future: _userService.loadUserData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(
+            appBar: AppBar(title: Text('My Widget')),
+            body: Center(child: CircularProgressIndicator()),
+          );
+        } else {
+          final user = snapshot.data;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
@@ -67,7 +54,7 @@ class _WalletScreenState extends State<WalletScreen> {
           ),
         ),
         SizedBox(height: defaultPadding),
-        Text('Your Balance: $balance',
+        Text('Your Balance: Rs. ${user?.wallet ?? 'loading...'}',
         textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
@@ -91,6 +78,8 @@ class _WalletScreenState extends State<WalletScreen> {
     )
     ),
     );
-      
+        }
+      },
+    );
   }
 }

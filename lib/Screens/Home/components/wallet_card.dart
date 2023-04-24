@@ -58,24 +58,24 @@ class Wallet_card extends StatelessWidget {
                                 duration: const Duration(milliseconds: 1500),
                                 opacity: value,
                                 child: Text(
-                                  'Balance: Rs. $balance',
+                                  'Balance: Rs. 100',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Styles.blackColor,
                                       fontSize: 16),
                                 ),
                               ),
-                              if(balance<100) AnimatedOpacity(
-                                duration: const Duration(milliseconds: 1500),
-                                opacity: value,
-                                child: Text(
-                                  'Your balance is too low, try adding more!',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Styles.blackColor,
-                                      fontSize: 12),
-                                ),
-                              )
+                              // if(User.wallet!<100) AnimatedOpacity(
+                              //   duration: const Duration(milliseconds: 1500),
+                              //   opacity: value,
+                              //   child: Text(
+                              //     'Your balance is too low, try adding more!',
+                              //     style: TextStyle(
+                              //         fontWeight: FontWeight.bold,
+                              //         color: Styles.blackColor,
+                              //         fontSize: 12),
+                              //   ),
+                              // )
                             ],
                           ),
                         ),
