@@ -35,11 +35,18 @@ class _SignUpFormState extends State<SignUpForm> {
       "wallet" : 100
     };
 
+    Map<String, dynamic> newTransactionData = {
+      "amount": 100,
+      "time_stamp": DateTime.now(),
+      "type": "credit"
+    };
+
     //creating new account
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-      // await userCredential.user!.updateDisplayName(widget.palmId);
       await FirebaseFirestore.instance.collection("users").doc(widget.palmId).set(newUserData);
+      CollectionReference transactionsCollection = FirebaseFirestore.instance.collection("users").doc(widget.palmId).collection("transactions");
+      await transactionsCollection.add(newTransactionData);
 
       if(userCredential.user != null) {
         Fluttertoast.showToast(
@@ -76,7 +83,7 @@ class _SignUpFormState extends State<SignUpForm> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: defaultPadding / 2),
             child: TextFormField(
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
             controller: nameController,

@@ -1,5 +1,9 @@
+import 'dart:async';
+import 'package:contactless_payment_mobile/Screens/root_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+
 import 'package:contactless_payment_mobile/Screens/Wallet/razorpay.dart';
 import 'package:contactless_payment_mobile/utils/styles.dart';
 import 'package:contactless_payment_mobile/widgets/animated_title.dart';
@@ -17,33 +21,41 @@ class WalletScreen extends StatefulWidget {
 class _WalletScreenState extends State<WalletScreen> {
   final RazorPayIntegration _integration = RazorPayIntegration();
   late final UserFirestoreService _userService;
-  final GlobalKey<_WalletScreenState> _walletKey = GlobalKey();
-
-  void reloadPage() {
-    setState(() {
-      _integration.intiateRazorPay();
-      _userService = UserFirestoreService();
-    });
-  }
+  TextEditingController amountController = TextEditingController();
+  num amount = 100;
+  late Timer _timer;
+  late double? wallet = User.wallet;
 
   @override
   void initState() {
     super.initState();
     _integration.intiateRazorPay();
     _userService = UserFirestoreService();
+    wallet = User.wallet;
+    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {
+        _userService.loadUserWallet();
+        wallet = User.wallet;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _userService.loadUserData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        } else {
-          final user = snapshot.data;
+    // return FutureBuilder<void>(
+    //   future: _userService.loadUserWallet(),
+    //   builder: (context, snapshot) {
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return Scaffold(
+    //         body: Center(child: CircularProgressIndicator()),
+    //       );
+    //     } else {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 40.0),
@@ -60,11 +72,11 @@ class _WalletScreenState extends State<WalletScreen> {
             height: 1
           ),
         ),
-        SizedBox(height: defaultPadding),
-        Text('Your Balance: Rs. ${User.wallet ?? 'loading...'}',
+        SizedBox(height: defaultPadding*4),
+        Text('Your Balance: Rs. ${wallet ?? 'loading...'}',
         textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Styles.blackColor,
             height: 1
@@ -73,20 +85,50 @@ class _WalletScreenState extends State<WalletScreen> {
         SizedBox(height: defaultPadding * 2),
         const AnimatedTitle(title: 'Refill Wallet'), 
         SizedBox(height: defaultPadding),
-        
-      FloatingActionButton(
+
+  
+      Padding(
+        padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+        child: TextFormField(
+            keyboardType: TextInputType.number,
+            textInputAction: TextInputAction.next,
+            cursorColor: kPrimaryColor,
+            controller: amountController,
+            onSaved: (amount) {},
+            // validator: MultiValidator([
+            //   RequiredValidator(errorText: "* Required"),
+            // ]),
+            decoration: InputDecoration(
+              hintText: "Amount in Rs.",
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(defaultPadding),
+                child: Icon(Icons.money),
+              ),
+            ),
+          ),
+      ),
+    Padding(
+        padding: const EdgeInsets.symmetric(vertical: defaultPadding),
+        child: FloatingActionButton(
         onPressed: () {
-          _integration.openSession(amount: 100);
+          if(amountController.text != "") {
+          amount = num.tryParse(amountController.text.trim())!;
+          }
+          _integration.openSession(amount: amount);
+            
         },
         tooltip: 'Razorpay',
         child: const Icon(Icons.add),
       ),
-      ],  
-    )
+      ),
+  
+  ],
+),
+      
     ),
     );
-        }
-      },
-    );
+        // }
+//       },
+//     );
   }
 }

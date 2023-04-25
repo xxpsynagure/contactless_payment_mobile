@@ -1,3 +1,4 @@
+import 'package:contactless_payment_mobile/Screens/Home/components/transaction_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:contactless_payment_mobile/utils/styles.dart';
@@ -26,10 +27,15 @@ class Home extends StatelessWidget {
                 height: 1
                 ),  
               ),
-        SizedBox(height: 35),
+        SizedBox(height: 40),
         const AnimatedTitle(title: 'Your Wallet'), 
         SizedBox(height: 10),
-        const Wallet_card(), 
+        const Wallet_card(),
+
+        SizedBox(height: 40),
+        const AnimatedTitle(title: 'Your Transactions'), 
+        SizedBox(height: 20),
+        const Transaction_card(),
       ],
     ),
           )

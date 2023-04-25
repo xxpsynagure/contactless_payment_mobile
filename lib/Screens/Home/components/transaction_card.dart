@@ -1,3 +1,4 @@
+import 'package:contactless_payment_mobile/Screens/History/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:contactless_payment_mobile/Screens/Wallet/wallet_screen.dart';
@@ -6,8 +7,8 @@ import '../../../utils/layouts.dart';
 import '../../../utils/data.dart';
 
 
-class Wallet_card extends StatelessWidget {
-  const Wallet_card({Key? key,}) : super(key: key);
+class Transaction_card extends StatelessWidget {
+  const Transaction_card({Key? key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class Wallet_card extends StatelessWidget {
       child: InkWell(
         onTap: () {
            Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const WalletScreen())); 
+              context, MaterialPageRoute(builder: (_) => const TransactionScreen())); 
         }, 
         child:
           TweenAnimationBuilder<double>(
@@ -31,7 +32,7 @@ class Wallet_card extends StatelessWidget {
                     child: Stack(
                       children: [
                         Container(
-                          height: 135,
+                          height: 200,
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Styles.bgColor,
@@ -46,7 +47,7 @@ class Wallet_card extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Wallet',
+                                'History',
                                 style: TextStyle(
                                     fontSize: value*27,
                                     fontWeight: FontWeight.bold,
@@ -58,24 +59,13 @@ class Wallet_card extends StatelessWidget {
                                 duration: const Duration(milliseconds: 1500),
                                 opacity: value,
                                 child: Text(
-                                  'Use our wallet for easy payments',
+                                  'Check your previous transactions here',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Styles.blackColor,
                                       fontSize: 16),
                                 ),
                               ),
-                              // if(User.wallet!<100) AnimatedOpacity(
-                              //   duration: const Duration(milliseconds: 1500),
-                              //   opacity: value,
-                              //   child: Text(
-                              //     'Your balance is too low, try adding more!',
-                              //     style: TextStyle(
-                              //         fontWeight: FontWeight.bold,
-                              //         color: Styles.blackColor,
-                              //         fontSize: 12),
-                              //   ),
-                              // )
                             ],
                           ),
                         ),
@@ -98,7 +88,7 @@ class Wallet_card extends StatelessWidget {
                     left: 12,
                     bottom: 0,
                     child: SvgPicture.asset(
-                      'assets/icons/signup.svg',
+                      'assets/icons/welcome-chat.svg',
                       height: value*150,
                     ),
                   ),

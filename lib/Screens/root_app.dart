@@ -1,3 +1,4 @@
+import 'package:contactless_payment_mobile/Screens/History/transactions.dart';
 import 'package:flutter/material.dart';
 import 'package:contactless_payment_mobile/theme/color.dart';
 import 'package:contactless_payment_mobile/utils/constant.dart';
@@ -15,7 +16,8 @@ class RootApp extends StatefulWidget {
 
 class _RootAppState extends State<RootApp>  with TickerProviderStateMixin {
   int activeTab = 0;
-  
+  late final UserFirestoreService _userService;
+
   List barItems = [
     {
       "icon" : "assets/icons/home-border.svg",
@@ -32,7 +34,7 @@ class _RootAppState extends State<RootApp>  with TickerProviderStateMixin {
     {
       "icon" : "assets/icons/history.svg",
       "active_icon" : "assets/icons/history.svg",
-      "page" : const Home(),
+      "page" : const TransactionScreen(),
       "title" : ""
     },
     {
@@ -55,6 +57,7 @@ class _RootAppState extends State<RootApp>  with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _userService = UserFirestoreService();
      _controller.forward();
   }
 
@@ -76,6 +79,8 @@ class _RootAppState extends State<RootApp>  with TickerProviderStateMixin {
     _controller.reset();
     setState(() {
       activeTab = index;
+      _userService.loadUserWallet();
+      _userService.loadUserTransactions();
     });
     _controller.forward();
   }
