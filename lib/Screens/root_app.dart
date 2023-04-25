@@ -5,7 +5,7 @@ import 'package:contactless_payment_mobile/Screens/Home/components/bottombar_ite
 import 'package:contactless_payment_mobile/Screens/Home/home_screen.dart';
 import 'package:contactless_payment_mobile/Screens/Wallet/wallet_screen.dart';
 import 'package:contactless_payment_mobile/Screens/Settings/settings_screen.dart';
-
+import 'package:contactless_payment_mobile/utils/data.dart';
 class RootApp extends StatefulWidget {
   const RootApp({ Key? key }) : super(key: key);
 

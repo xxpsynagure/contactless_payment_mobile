@@ -1,19 +1,23 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import './api_services.dart';
+import '../../../utils/data.dart';
 
 class RazorPayIntegration {
   final Razorpay _razorpay = Razorpay(); //Instance of razor pay
   final razorPayKey = dotenv.get("RAZOR_KEY");
   final razorPaySecret = dotenv.get("RAZOR_SECRET");
+  final UserFirestoreService _userService = UserFirestoreService();
+
   intiateRazorPay() {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
  
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     // Do something when payment succeeds
+    await _userService.updateWallet(100);
   }
   void _handlePaymentError(PaymentFailureResponse response) {
     // Do something when payment fails

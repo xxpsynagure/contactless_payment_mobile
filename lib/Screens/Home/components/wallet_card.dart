@@ -58,7 +58,7 @@ class Wallet_card extends StatelessWidget {
                                 duration: const Duration(milliseconds: 1500),
                                 opacity: value,
                                 child: Text(
-                                  'Balance: Rs. 100',
+                                  'Use our wallet for easy payments',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Styles.blackColor,

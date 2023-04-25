@@ -17,6 +17,14 @@ class WalletScreen extends StatefulWidget {
 class _WalletScreenState extends State<WalletScreen> {
   final RazorPayIntegration _integration = RazorPayIntegration();
   late final UserFirestoreService _userService;
+  final GlobalKey<_WalletScreenState> _walletKey = GlobalKey();
+
+  void reloadPage() {
+    setState(() {
+      _integration.intiateRazorPay();
+      _userService = UserFirestoreService();
+    });
+  }
 
   @override
   void initState() {
@@ -27,12 +35,11 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<User>(
+    return FutureBuilder<void>(
       future: _userService.loadUserData(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
-            appBar: AppBar(title: Text('My Widget')),
             body: Center(child: CircularProgressIndicator()),
           );
         } else {
@@ -54,7 +61,7 @@ class _WalletScreenState extends State<WalletScreen> {
           ),
         ),
         SizedBox(height: defaultPadding),
-        Text('Your Balance: Rs. ${user?.wallet ?? 'loading...'}',
+        Text('Your Balance: Rs. ${User.wallet ?? 'loading...'}',
         textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20,
