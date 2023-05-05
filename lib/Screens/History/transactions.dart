@@ -8,6 +8,8 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:contactless_payment_mobile/utils/styles.dart';
 import 'package:contactless_payment_mobile/widgets/animated_title.dart';
 import '../../../utils/data.dart';
+import '../../../utils/styles.dart';
+
 
 class TransactionScreen extends StatefulWidget {
   const TransactionScreen({
@@ -28,7 +30,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     super.initState();
     _userService = UserFirestoreService();
     transactionList = User.transactions;
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) { 
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) { 
       setState((){
         _userService.loadUserTransactions();
         transactionList = User.transactions;
@@ -85,42 +87,71 @@ class _TransactionScreenState extends State<TransactionScreen> {
             TableCell(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Date and Time'),
+                child: Text('Date and Time', 
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryColor,
+                  ),
+                ),
+                
               ),
             ),
             TableCell(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Amount'),
+                child: Text('Amount',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryColor,
+                  ),
+                ),
               ),
             ),
             TableCell(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text('Type'),
+                child: Text('Type',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryColor,
+                  ),
+                ),
               ),
             ),
           ],
         ),
         for (var record in transactionList)
           TableRow(
+            decoration: BoxDecoration(
+              color : kPrimaryLightColor,
+            ),
+            
             children: [
               TableCell(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(record['time_stamp'].toString()),
+                  child: Text(record['time_stamp'].toString(),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               TableCell(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(record['amount']),
+                  child: Text(record['amount'],
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
               TableCell(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(record['type']),
+                  child: Text(record['type'],
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ],

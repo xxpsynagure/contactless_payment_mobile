@@ -43,11 +43,12 @@ class UserFirestoreService {
         final userData = userSnapshot.docs.first.data();
         User.palmId = userData['palm_id'];
               
-        final transactionSnapshot = await _firestore.collection('users').doc(User.palmId).collection('transactions').orderBy('time_stamp', descending: true).get();
+        final transactionSnapshot = await FirebaseFirestore.instance.collection('users').doc(User.palmId).collection('transactions').orderBy('time_stamp', descending: true).get();
         List<dynamic> transactionsList = [];
 
         for (var transaction in transactionSnapshot.docs){
           String trans = transaction.data().toString().replaceAll(new RegExp(r'[{}]+'),'');
+          // print(transaction.data().toString());
           List<dynamic> listt= trans.split(RegExp(r',\s(?![^()]*\))'));
           Map<String, dynamic> transactionMap = {};
           listt.forEach((data) {

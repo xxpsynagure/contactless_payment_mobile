@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:contactless_payment_mobile/theme/color.dart';
+import 'package:contactless_payment_mobile/utils/styles.dart';
+
 
 class BottomBarItem extends StatelessWidget {
   const BottomBarItem(this.icon, this.title, {this.onTap, this.color = Colors.black, this.activeColor = primary, this.isActive = false, this.isNotified = false});
@@ -27,7 +28,9 @@ class BottomBarItem extends StatelessWidget {
               padding: EdgeInsets.all(7),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(50),
-                color: isActive ? primary.withOpacity(.1) : Colors.transparent,
+                // color: isActive ? primary.withOpacity(.1) : Colors.transparent,
+                color: isActive ? primary.withOpacity(.1) : kPrimaryLightColor,
+
               ),
               child: SvgPicture.asset(icon, color: isActive ? activeColor : color, width: 25, height: 25,),
             ),

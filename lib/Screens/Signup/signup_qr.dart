@@ -29,7 +29,7 @@ var data = '';
 Future CheckCode(qrdata) async {
   try {
     data = qrdata;
-    data = data.split(': ')[1];
+    data = data.split(': ')[1].trim();
 
     // var param = {
     //   "palm_id" : "$data",

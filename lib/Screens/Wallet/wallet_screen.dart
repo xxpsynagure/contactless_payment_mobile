@@ -32,7 +32,7 @@ class _WalletScreenState extends State<WalletScreen> {
     _integration.intiateRazorPay();
     _userService = UserFirestoreService();
     wallet = User.wallet;
-    _timer = Timer.periodic(Duration(seconds: 5), (timer) {
+    _timer = Timer.periodic(Duration(seconds: 3), (timer) {
       setState(() {
         _userService.loadUserWallet();
         wallet = User.wallet;
@@ -110,6 +110,7 @@ class _WalletScreenState extends State<WalletScreen> {
     Padding(
         padding: const EdgeInsets.symmetric(vertical: defaultPadding),
         child: FloatingActionButton(
+        
         onPressed: () {
           if(amountController.text != "") {
           amount = num.tryParse(amountController.text.trim())!;
@@ -119,6 +120,7 @@ class _WalletScreenState extends State<WalletScreen> {
         },
         tooltip: 'Razorpay',
         child: const Icon(Icons.add),
+        backgroundColor: kPrimaryColor,
       ),
       ),
   
