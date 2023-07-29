@@ -58,8 +58,8 @@ class UserFirestoreService {
               int nanoseconds = int.parse(val[1].split("nanoseconds=")[1].split(")")[0]);
               Timestamp timestamp = Timestamp(seconds, nanoseconds);
               DateTime dateTime = timestamp.toDate();
-              DateTime localDateTime = dateTime.add(Duration(hours: 5, minutes: 30));
-              transactionMap[val[0]] = localDateTime;
+              // DateTime localDateTime = dateTime;
+              transactionMap[val[0]] = dateTime;
             }
             else {
               transactionMap[val[0]] = val[1];
